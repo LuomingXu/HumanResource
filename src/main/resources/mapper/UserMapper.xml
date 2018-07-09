@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qst.human_resources.mapper.UserDTOMapper">
+<mapper namespace="com.qst.human_resources.mapper.UserMapper">
   <resultMap id="BaseResultMap" type="com.qst.human_resources.dto.UserDTO">
     <id column="username" jdbcType="NVARCHAR" property="username" />
     <result column="password" jdbcType="NVARCHAR" property="password" />

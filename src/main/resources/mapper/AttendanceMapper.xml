@@ -11,11 +11,16 @@
   <sql id="Base_Column_List">
     id, username, date, isLate, isAbsenteeism
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
     <include refid="Base_Column_List" />
     from attendance
-    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserName" parameterType="com.qst.human_resources.dto.AttendanceDTO" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from attendance
+    where username = #{username,jdbcType=NVARCHAR}
   </select>
   <insert id="insert" parameterType="com.qst.human_resources.dto.AttendanceDTO">
     insert into attendance (id, username, date, 

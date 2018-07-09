@@ -12,6 +12,12 @@ package com.qst.human_resources.dto;
 import java.util.Date;
 
 public class UserDTO {
+
+    public enum authority
+    {
+        admin,
+        normal
+    }
     private String username;
 
     private String password;

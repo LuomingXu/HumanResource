@@ -3,20 +3,21 @@
  * Author : Luoming Xu
  * Project Name : human_resources
  * File Name : UserSalaryDTO.java
- * CreateTime: 2018/07/09 10:40:53
- * LastModifiedDate : 18-7-9 上午10:40
+ * CreateTime: 2018/07/09 11:41:30
+ * LastModifiedDate : 18-7-9 上午11:40
  */
 
 package com.qst.human_resources.dto;
 
 import java.math.BigDecimal;
 
-public class UserSalaryDTO {
+public class UserSalaryDTO
+{
     private Integer id;
 
     private String username;
 
-    private String month;
+    private Integer month;
 
     private BigDecimal salary;
 
@@ -36,12 +37,12 @@ public class UserSalaryDTO {
         this.username = username == null ? null : username.trim();
     }
 
-    public String getMonth() {
+    public Integer getMonth() {
         return month;
     }
 
-    public void setMonth(String month) {
-        this.month = month == null ? null : month.trim();
+    public void setMonth(Integer month) {
+        this.month = month;
     }
 
     public BigDecimal getSalary() {
@@ -58,7 +59,7 @@ public class UserSalaryDTO {
         return "UserSalaryDTO{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", month='" + month + '\'' +
+                ", month=" + month +
                 ", salary=" + salary +
                 '}';
     }

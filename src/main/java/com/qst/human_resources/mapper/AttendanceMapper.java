@@ -11,11 +11,15 @@ package com.qst.human_resources.mapper;
 
 import com.qst.human_resources.dto.AttendanceDTO;
 
+import java.util.List;
+
 public interface AttendanceMapper
 {
     int insert(AttendanceDTO record);
 
     int insertSelective(AttendanceDTO record);
 
-    AttendanceDTO selectByPrimaryKey(Integer id);
+    List<AttendanceDTO> selectAll();
+
+    List<AttendanceDTO> selectByUserName(AttendanceDTO record);
 }

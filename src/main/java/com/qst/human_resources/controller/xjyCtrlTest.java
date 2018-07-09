@@ -18,11 +18,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
 public class xjyCtrlTest
 {
+    public static void main(String[] args)
+    {
+        List<Integer> lists = new ArrayList<>();
+        for (int i = 0; i < 100; i++)
+        {
+            lists.add(i + 1);
+        }
+
+        System.err.println(lists.size());
+
+        //注意这个地方
+        lists.removeIf(integer -> !(integer % 3 == 0));
+
+        for (int item : lists)
+        {
+            System.out.println(item);
+        }
+    }
+
     @Autowired
     private UserMapper mapper;
 
@@ -37,7 +58,8 @@ public class xjyCtrlTest
 
     @RequestMapping("/xjy1")
     @ResponseBody
-    public UserDTO test(){
+    public UserDTO test()
+    {
         UserDTO model = new UserDTO();
         model.setUsername("123");
         return mapper.selectByPrimaryKey(model.getUsername());

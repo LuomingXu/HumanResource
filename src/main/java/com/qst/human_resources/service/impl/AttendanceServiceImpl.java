@@ -15,8 +15,7 @@ import com.qst.human_resources.service.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class AttendanceServiceImpl implements AttendanceService
@@ -24,18 +23,13 @@ public class AttendanceServiceImpl implements AttendanceService
     @Autowired
     private AttendanceMapper mapper;
 
-    @Override
-    public AttendanceDTO getLatestInfoByUsername(String username)
+    private List<Double> calculateRate(List<AttendanceDTO> models)
     {
-        return mapper.selectLatestByUserName(username);
-    }
+        List<Double> rate = new ArrayList<>();
 
-    @Override
-    public double getRateOfLateByUsername(String username)
-    {
-        List<AttendanceDTO> models = mapper.selectByUserName(username);
         int count = 0;
         int late = 0;
+        int attendance = 0;
 
         for (AttendanceDTO item : models)
         {
@@ -44,37 +38,66 @@ public class AttendanceServiceImpl implements AttendanceService
             {
                 late++;
             }
+            if (item.getIsabsenteeism() == 0)
+            {
+                attendance++;
+            }
         }
-        return late / count;
+
+        rate.add((double) (late / count));
+        rate.add((double) (attendance / count));
+
+        return rate;
     }
 
     @Override
-    public double getRateOfLateByUsername(String username, int year)
+    public List<Double> getRateByDate(Date date)
     {
-        return 0;
+        List<AttendanceDTO> models = mapper.selectAllByDate(date);
+        List<Double> rate=new ArrayList<>();
+
+        if (models != null)
+        {
+            rate =  calculateRate(models);
+        }
+        else
+        {
+            System.err.println("can not get data by this date");
+        }
+
+        return rate;
     }
 
     @Override
-    public double getRateOfLateByUsername(String username, int year, int month)
+    public List<Double> getRateByUsername(String username, Date date)
     {
-        return 0;
+        List<AttendanceDTO> models = mapper.selectByUserName(username);
+        List<Double> rate=new ArrayList<>();
+
+        if (models != null)
+        {
+            if (date == null)
+            {
+                rate = calculateRate(models);
+                return rate;
+            }
+
+            //将不符合这个date的删去
+            models.removeIf(item -> !item.getDate().equals(date));
+
+            rate = calculateRate(models);
+        }
+        else
+        {
+            System.err.println("can not get data by this date");
+        }
+
+        return rate;
     }
 
     @Override
-    public double getRateOfAttendanceByUsernmae(String username)
+    public AttendanceDTO getLatestInfoByUsername(String username)
     {
-        return 0;
-    }
-
-    @Override
-    public double getRateOfAttendanceByUsernmae(String username, int year)
-    {
-        return 0;
-    }
-
-    @Override
-    public double getRateOfAttendanceByUsernmae(String username, int year, int month)
-    {
-        return 0;
+        return mapper.selectLatestByUserName(username);
     }
 }

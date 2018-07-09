@@ -12,9 +12,13 @@ package com.qst.human_resources.service;
 import com.qst.human_resources.dto.UserDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface UserService
 {
+    List<UserDTO> getAllUsers();
+
     /**
      * 判断用户是否存在
      *

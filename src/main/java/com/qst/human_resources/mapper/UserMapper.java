@@ -11,8 +11,12 @@ package com.qst.human_resources.mapper;
 
 import com.qst.human_resources.dto.UserDTO;
 
+import java.util.List;
+
 public interface UserMapper
 {
+    List<UserDTO> selectAll();
+
     int insertSelective(UserDTO record);
 
     UserDTO selectByPrimaryKey(String username);

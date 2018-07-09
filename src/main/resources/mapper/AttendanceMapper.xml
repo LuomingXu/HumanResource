@@ -23,6 +23,12 @@
     where username = #{username,jdbcType=NVARCHAR}
     order by date desc
   </select>
+  <select id="selectAllByDate" parameterType="java.util.Date" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from attendance
+    where date = #{date,jdbcType=TIMESTAMP}
+  </select>
   <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

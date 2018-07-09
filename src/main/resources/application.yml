@@ -1,0 +1,16 @@
+spring:
+  thymeleaf:
+    mode: LEGACYHTML5
+    cache: true
+  datasource:
+    url: jdbc:sqlserver://182.254.223.162;database=HumanResource
+    username: qst
+    password: qst123
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+mybatis:
+  mapper-locations: mapper/*.xml
+sensor:
+  port: 8080
+  dataLength: 27
+server:
+  port: 8080

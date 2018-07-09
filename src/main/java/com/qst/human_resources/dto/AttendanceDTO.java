@@ -13,6 +13,13 @@ import java.util.Date;
 
 public class AttendanceDTO
 {
+    public enum dateChoice
+    {
+        year,
+        month,
+        day
+    }
+
     private Integer id;
 
     private String username;

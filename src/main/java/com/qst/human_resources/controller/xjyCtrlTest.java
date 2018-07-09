@@ -42,6 +42,10 @@ public class xjyCtrlTest
         {
             System.out.println(item);
         }
+
+
+        UserDTO user = new UserDTO();
+        user.setAuthority(UserDTO.authority.admin.toString());
     }
 
     @Autowired

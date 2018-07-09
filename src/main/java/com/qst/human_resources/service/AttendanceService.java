@@ -20,21 +20,26 @@ public interface AttendanceService
 {
     /**
      * 根据日期来获得这个日期的迟到, 出勤率
+     * 即, 通过年月日来过滤获取到的dto, 计算出符合前台
+     * 要求的迟到出勤率
      *
-     * @param date 日期
-     * @return 0-迟到率, 1-出勤率
+     * @param date       日期
+     * @param dateChoice 选择年, 月, 日
+     * @return
      */
-    List<Double> getRateByDate(Date date);
+    List<Double> getRateByDate(Date date, AttendanceDTO.dateChoice dateChoice);
 
     /**
-     * 获取迟到率, 出勤率
-     * 如果没有传入date, 则传回这个用户的整个迟到, 出勤率
+     * 根据日期来获得这个日期的迟到, 出勤率
+     * 即, 通过年月日来过滤获取到的dto, 计算出符合前台
+     * 要求的迟到出勤率
      *
-     * @param username 用户名
-     * @param date 日期
-     * @return 0-迟到率, 1-出勤率
+     * @param username   用户名
+     * @param date       日期
+     * @param dateChoice 选择年, 月, 日
+     * @return
      */
-    List<Double> getRateByUsername(String username, Date date);
+    List<Double> getRateByUsername(String username, Date date, AttendanceDTO.dateChoice dateChoice);
 
     /**
      * 获取最新的迟到, 出勤数据
@@ -43,4 +48,6 @@ public interface AttendanceService
      * @return 出勤表类
      */
     AttendanceDTO getLatestInfoByUsername(String username);
+
+    boolean insertAttendanceInfo(AttendanceDTO record);
 }

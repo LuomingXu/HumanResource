@@ -15,6 +15,7 @@ import com.qst.human_resources.service.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -50,31 +51,69 @@ public class AttendanceServiceImpl implements AttendanceService
         return rate;
     }
 
-    @Override
-    public List<Double> getRateByDate(Date date)
+    private List<AttendanceDTO> removeModelsIfItIsNotMatchDate
+            (List<AttendanceDTO> models, Date date, AttendanceDTO.dateChoice dateChoice)
     {
-        List<AttendanceDTO> models = mapper.selectAllByDate(date);
-        List<Double> rate=new ArrayList<>();
+        SimpleDateFormat sdf;
 
-        if (models != null)
+        switch (dateChoice)
         {
-            rate =  calculateRate(models);
+            case year:
+                sdf = new SimpleDateFormat("yyyy");
+                models.removeIf(item ->
+                        sdf.format(item.getDate()).equals(sdf.format(date))
+                );
+                break;
+            case month:
+                sdf = new SimpleDateFormat("yyyy-MM");
+                models.removeIf(item ->
+                        sdf.format(item.getDate()).equals(sdf.format(date))
+                );
+                break;
+            case day:
+                sdf = new SimpleDateFormat("yyyy-MM-dd");
+                models.removeIf(item ->
+                        sdf.format(item.getDate()).equals(sdf.format(date))
+                );
+                break;
+        }
+
+        return models;
+    }
+
+    @Override
+    public List<Double> getRateByDate(Date date, AttendanceDTO.dateChoice dateChoice)
+    {
+        List<AttendanceDTO> models = mapper.selectAll();
+        List<Double> rate;
+
+        if (models == null)
+        {
+            System.err.println("can not get data by this date");
+            return null;
         }
         else
         {
-            System.err.println("can not get data by this date");
+            models = removeModelsIfItIsNotMatchDate(models, date, dateChoice);
+
+            rate = calculateRate(models);
         }
 
         return rate;
     }
 
     @Override
-    public List<Double> getRateByUsername(String username, Date date)
+    public List<Double> getRateByUsername(String username, Date date, AttendanceDTO.dateChoice dateChoice)
     {
         List<AttendanceDTO> models = mapper.selectByUserName(username);
-        List<Double> rate=new ArrayList<>();
+        List<Double> rate;
 
-        if (models != null)
+        if (models == null)
+        {
+            System.err.println("can not get data by this date");
+            return null;
+        }
+        else
         {
             if (date == null)
             {
@@ -82,14 +121,9 @@ public class AttendanceServiceImpl implements AttendanceService
                 return rate;
             }
 
-            //将不符合这个date的删去
-            models.removeIf(item -> !item.getDate().equals(date));
+            models = removeModelsIfItIsNotMatchDate(models, date, dateChoice);
 
             rate = calculateRate(models);
-        }
-        else
-        {
-            System.err.println("can not get data by this date");
         }
 
         return rate;
@@ -99,5 +133,11 @@ public class AttendanceServiceImpl implements AttendanceService
     public AttendanceDTO getLatestInfoByUsername(String username)
     {
         return mapper.selectLatestByUserName(username);
+    }
+
+    @Override
+    public boolean insertAttendanceInfo(AttendanceDTO record)
+    {
+        return mapper.insertSelective(record) > 0;
     }
 }

@@ -10,7 +10,6 @@
 package com.qst.human_resources.mapper;
 
 import com.qst.human_resources.dto.AttendanceDTO;
-import jdk.nashorn.internal.runtime.linker.LinkerCallSite;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -18,8 +17,6 @@ import java.util.List;
 
 public interface AttendanceMapper
 {
-    int insert(AttendanceDTO record);
-
     int insertSelective(AttendanceDTO record);
 
     List<AttendanceDTO> selectAll();

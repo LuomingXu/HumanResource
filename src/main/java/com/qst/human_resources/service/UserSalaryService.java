@@ -38,5 +38,5 @@ public interface UserSalaryService
      * @param record 用户工资类
      * @return 是否插入成功
      */
-    boolean addUserSalary(UserSalaryDTO record);
+    boolean insertUserSalary(UserSalaryDTO record);
 }

@@ -35,12 +35,6 @@
     from attendance
     where username = #{username,jdbcType=NVARCHAR}
   </select>
-  <insert id="insert" parameterType="com.qst.human_resources.dto.AttendanceDTO">
-    insert into attendance (id, username, date, 
-      isLate, isAbsenteeism)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=NVARCHAR}, #{date,jdbcType=TIMESTAMP}, 
-      #{islate,jdbcType=INTEGER}, #{isabsenteeism,jdbcType=INTEGER})
-  </insert>
   <insert id="insertSelective" parameterType="com.qst.human_resources.dto.AttendanceDTO">
     insert into attendance
     <trim prefix="(" suffix=")" suffixOverrides=",">

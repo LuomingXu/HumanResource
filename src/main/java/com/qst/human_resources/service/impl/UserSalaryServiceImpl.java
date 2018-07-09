@@ -36,7 +36,7 @@ public class UserSalaryServiceImpl implements UserSalaryService
     }
 
     @Override
-    public boolean addUserSalary(UserSalaryDTO record)
+    public boolean insertUserSalary(UserSalaryDTO record)
     {
         return mapper.insertSelective(record) > 0;
     }

@@ -10,6 +10,7 @@
 package com.qst.human_resources.mapper;
 
 import com.qst.human_resources.dto.AttendanceDTO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,5 +22,7 @@ public interface AttendanceMapper
 
     List<AttendanceDTO> selectAll();
 
-    List<AttendanceDTO> selectByUserName(AttendanceDTO record);
+    List<AttendanceDTO> selectByUserName(@Param("username")String username);
+
+    AttendanceDTO selectLatestByUserName(@Param("username") String username);
 }

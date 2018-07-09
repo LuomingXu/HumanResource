@@ -13,7 +13,9 @@ import com.qst.human_resources.dto.UserDTO;
 import com.qst.human_resources.mapper.UserMapper;
 import com.qst.human_resources.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServiceImpl implements UserService
 {
     @Autowired

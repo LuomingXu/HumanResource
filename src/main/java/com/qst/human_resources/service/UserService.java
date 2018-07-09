@@ -10,7 +10,9 @@
 package com.qst.human_resources.service;
 
 import com.qst.human_resources.dto.UserDTO;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface UserService
 {
     /**

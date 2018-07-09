@@ -16,7 +16,14 @@
     <include refid="Base_Column_List" />
     from attendance
   </select>
-  <select id="selectByUserName" parameterType="com.qst.human_resources.dto.AttendanceDTO" resultMap="BaseResultMap">
+  <select id="selectLatestByUserName" resultMap="BaseResultMap">
+    select top 1
+    <include refid="Base_Column_List" />
+    from attendance
+    where username = #{username,jdbcType=NVARCHAR}
+    order by date desc
+  </select>
+  <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from attendance

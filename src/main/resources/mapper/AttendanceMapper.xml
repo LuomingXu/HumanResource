@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qst.human_resources.mapper.AttendanceMapper">
+  <resultMap id="BaseResultMap" type="com.qst.human_resources.dto.AttendanceDTO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="NVARCHAR" property="username" />
+    <result column="date" jdbcType="TIMESTAMP" property="date" />
+    <result column="isLate" jdbcType="INTEGER" property="islate" />
+    <result column="isAbsenteeism" jdbcType="INTEGER" property="isabsenteeism" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, date, isLate, isAbsenteeism
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from attendance
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.qst.human_resources.dto.AttendanceDTO">
+    insert into attendance (id, username, date, 
+      isLate, isAbsenteeism)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=NVARCHAR}, #{date,jdbcType=TIMESTAMP}, 
+      #{islate,jdbcType=INTEGER}, #{isabsenteeism,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qst.human_resources.dto.AttendanceDTO">
+    insert into attendance
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="islate != null">
+        isLate,
+      </if>
+      <if test="isabsenteeism != null">
+        isAbsenteeism,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="islate != null">
+        #{islate,jdbcType=INTEGER},
+      </if>
+      <if test="isabsenteeism != null">
+        #{isabsenteeism,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

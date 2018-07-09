@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2018
+  ~ Author : Luoming Xu
+  ~ Project Name : human_resources
+  ~ File Name : UserSalaryDTOMapper.xml
+  ~ CreateTime: 2018/07/09 10:41:44
+  ~ LastModifiedDate : 18-7-9 上午10:40
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qst.human_resources.mapper.UserSalaryDTOMapper">
+  <resultMap id="BaseResultMap" type="com.qst.human_resources.dto.UserSalaryDTO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="NVARCHAR" property="username" />
+    <result column="month" jdbcType="NVARCHAR" property="month" />
+    <result column="salary" jdbcType="DECIMAL" property="salary" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, month, salary
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_salary
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insertSelective" parameterType="com.qst.human_resources.dto.UserSalaryDTO">
+    insert into user_salary
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="month != null">
+        month,
+      </if>
+      <if test="salary != null">
+        salary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=NVARCHAR},
+      </if>
+      <if test="salary != null">
+        #{salary,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

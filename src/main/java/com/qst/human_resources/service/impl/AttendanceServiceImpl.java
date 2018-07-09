@@ -45,13 +45,18 @@ public class AttendanceServiceImpl implements AttendanceService
             }
         }
 
+        if (count == 0)
+        {
+            return null;
+        }
+
         rate.add((double) (late / count));
         rate.add((double) (attendance / count));
 
         return rate;
     }
 
-    private List<AttendanceDTO> removeModelsIfItIsNotMatchDate
+    private void removeModelsIfItIsNotMatchDate
             (List<AttendanceDTO> models, Date date, AttendanceDTO.dateChoice dateChoice)
     {
         SimpleDateFormat sdf;
@@ -61,24 +66,22 @@ public class AttendanceServiceImpl implements AttendanceService
             case year:
                 sdf = new SimpleDateFormat("yyyy");
                 models.removeIf(item ->
-                        sdf.format(item.getDate()).equals(sdf.format(date))
+                        !sdf.format(item.getDate()).equals(sdf.format(date))
                 );
                 break;
             case month:
                 sdf = new SimpleDateFormat("yyyy-MM");
                 models.removeIf(item ->
-                        sdf.format(item.getDate()).equals(sdf.format(date))
+                        !sdf.format(item.getDate()).equals(sdf.format(date))
                 );
                 break;
             case day:
                 sdf = new SimpleDateFormat("yyyy-MM-dd");
                 models.removeIf(item ->
-                        sdf.format(item.getDate()).equals(sdf.format(date))
+                        !sdf.format(item.getDate()).equals(sdf.format(date))
                 );
                 break;
         }
-
-        return models;
     }
 
     @Override
@@ -94,7 +97,7 @@ public class AttendanceServiceImpl implements AttendanceService
         }
         else
         {
-            models = removeModelsIfItIsNotMatchDate(models, date, dateChoice);
+            removeModelsIfItIsNotMatchDate(models, date, dateChoice);
 
             rate = calculateRate(models);
         }
@@ -121,7 +124,7 @@ public class AttendanceServiceImpl implements AttendanceService
                 return rate;
             }
 
-            models = removeModelsIfItIsNotMatchDate(models, date, dateChoice);
+            removeModelsIfItIsNotMatchDate(models, date, dateChoice);
 
             rate = calculateRate(models);
         }

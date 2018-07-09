@@ -9,47 +9,51 @@
 
 package com.qst.human_resources.controller;
 
+import com.qst.human_resources.dto.AttendanceDTO;
 import com.qst.human_resources.dto.UserDTO;
 import com.qst.human_resources.dto.UserSalaryDTO;
 import com.qst.human_resources.mapper.UserMapper;
 import com.qst.human_resources.mapper.UserSalaryMapper;
+import com.qst.human_resources.service.AttendanceService;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 public class xjyCtrlTest
 {
-    public static void main(String[] args)
-    {
-        List<Integer> lists = new ArrayList<>();
-        for (int i = 0; i < 100; i++)
-        {
-            lists.add(i + 1);
-        }
-
-        System.err.println(lists.size());
-
-        //注意这个地方
-        lists.removeIf(integer -> !(integer % 3 == 0));
-
-        for (int item : lists)
-        {
-            System.out.println(item);
-        }
-
-
-        UserDTO user = new UserDTO();
-        user.setAuthority(UserDTO.authority.admin.toString());
-    }
+//    private static void remove(List<Integer> lists)
+//    {
+//        lists.removeIf(item -> item % 3 == 0);
+//    }
+//
+//    public static void main(String[] args)
+//    {
+//        List<Integer> lists = new ArrayList<>();
+//        for (int i = 0; i < 100; i++)
+//        {
+//            lists.add(i + 1);
+//        }
+//
+//        System.err.println(lists.size());
+//
+//        remove(lists);
+//
+//        System.out.println(lists.size());
+//
+//
+//        UserDTO user = new UserDTO();
+//        user.setAuthority(UserDTO.authority.admin.toString());
+//
+//    }
 
     @Autowired
-    private UserMapper mapper;
+    private AttendanceService service;
 
 //    @RequestMapping("/xjy")
 //    @ResponseBody
@@ -60,13 +64,29 @@ public class xjyCtrlTest
 //        return mapper.selectByUserNameIncludeMonth(model);
 //    }
 
-    @RequestMapping("/xjy1")
+    @RequestMapping("/xjy")
     @ResponseBody
-    public UserDTO test()
+    public List<Double> test()
     {
-        UserDTO model = new UserDTO();
-        model.setUsername("123");
-        return mapper.selectByPrimaryKey(model.getUsername());
+        List<Double> temp = new ArrayList<>();
+
+        AttendanceDTO model = new AttendanceDTO();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        Calendar cal = Calendar.getInstance();
+        cal.set(2018,8,9);
+        Date date = cal.getTime();
+        System.err.println(date);
+        sdf.format(date);
+        System.err.println(date);
+
+        if (service.getRateByDate(date,AttendanceDTO.dateChoice.month) == null)
+        {
+            temp.add(-1.0);
+            temp.add(-1.0);
+
+            return temp;
+        }
+        return service.getRateByDate(date,AttendanceDTO.dateChoice.month);
     }
 
 }

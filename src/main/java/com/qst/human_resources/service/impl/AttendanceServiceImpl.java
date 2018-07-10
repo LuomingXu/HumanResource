@@ -92,7 +92,7 @@ public class AttendanceServiceImpl implements AttendanceService
 
         if (models == null)
         {
-            System.err.println("can not get data by this date");
+            System.err.println("can not get data by this date! ");
             return null;
         }
         else
@@ -113,7 +113,12 @@ public class AttendanceServiceImpl implements AttendanceService
 
         if (models == null)
         {
-            System.err.println("can not get data by this date");
+            System.err.println("can not get data by this date! ");
+            return null;
+        }
+        else if(dateChoice.equals(AttendanceDTO.dateChoice.day))
+        {
+            System.err.println("can not get rate by username in one day !. ");
             return null;
         }
         else

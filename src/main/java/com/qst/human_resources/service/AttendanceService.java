@@ -19,20 +19,16 @@ import java.util.List;
 public interface AttendanceService
 {
     /**
-     * 根据日期来获得这个日期的迟到, 出勤率
-     * 即, 通过年月日来过滤获取到的dto, 计算出符合前台
-     * 要求的迟到出勤率
+     * 根据日期来获得这个日期下的所有用户的迟到, 出勤率
      *
      * @param date       日期
-     * @param dateChoice 选择年, 月, 日
+     * @param dateChoice 选择计算年考勤率, 月还是日的考勤率
      * @return 返回的list中index-0是迟到率, index-1是出勤率
      */
     List<Double> getRateByDate(Date date, AttendanceDTO.dateChoice dateChoice);
 
     /**
-     * 根据日期来获得这个日期的迟到, 出勤率
-     * 即, 通过年月日来过滤获取到的dto, 计算出符合前台
-     * 要求的迟到出勤率
+     * 根据用户名和日期来获得, 此用户在当前日期下的考勤率
      *
      * @param username   用户名
      * @param date       日期

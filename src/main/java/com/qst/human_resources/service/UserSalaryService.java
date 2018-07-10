@@ -26,6 +26,7 @@ public interface UserSalaryService
 
     /**
      * 根据用户名, 可选月份来获取用户的工资信息
+     * 用户工资类中没有月份信息的话, 就返回这个用户的所有工资信息
      *
      * @param record 用户工资类
      * @return 用户工资类的list
@@ -33,7 +34,7 @@ public interface UserSalaryService
     List<UserSalaryDTO> selectByUserNameIncludeMonth(UserSalaryDTO record);
 
     /**
-     * 想用户工资表中插入用户的工资信息
+     * 向用户工资表中插入用户的工资信息
      *
      * @param record 用户工资类
      * @return 是否插入成功

@@ -72,4 +72,17 @@
       </if>
     </trim>
   </insert>
+  <update id="updateByUsernameAndDate" parameterType="com.qst.human_resources.dto.AttendanceDTO">
+    update attendance
+    <set>
+      <if test="islate != null">
+        isLate = #{islate,jdbcType=INTEGER},
+      </if>
+      <if test="isabsenteeism != null">
+        isAbsenteeism = #{isabsenteeism,jdbcType=INTEGER},
+      </if>
+    </set>
+    where username = #{username,jdbcType=NVARCHAR}
+    and date = #{date,jdbcType=TIMESTAMP}
+  </update>
 </mapper>

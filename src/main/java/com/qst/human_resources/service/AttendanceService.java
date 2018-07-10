@@ -25,7 +25,7 @@ public interface AttendanceService
      *
      * @param date       日期
      * @param dateChoice 选择年, 月, 日
-     * @return
+     * @return 返回的list中index-0是迟到率, index-1是出勤率
      */
     List<Double> getRateByDate(Date date, AttendanceDTO.dateChoice dateChoice);
 
@@ -37,7 +37,7 @@ public interface AttendanceService
      * @param username   用户名
      * @param date       日期
      * @param dateChoice 选择年, 月, 日
-     * @return
+     * @return 返回的list中index-0是迟到率, index-1是出勤率
      */
     List<Double> getRateByUsername(String username, Date date, AttendanceDTO.dateChoice dateChoice);
 
@@ -50,4 +50,12 @@ public interface AttendanceService
     AttendanceDTO getLatestInfoByUsername(String username);
 
     boolean insertAttendanceInfo(AttendanceDTO record);
+
+    /**
+     * 根据用户名和日期来更新用户的考勤信息
+     *
+     * @param record 必须包含用户名和日期信息
+     * @return 更新是否成功
+     */
+    boolean updateAttendanceInfo(AttendanceDTO record);
 }

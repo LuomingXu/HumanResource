@@ -26,4 +26,6 @@ public interface AttendanceMapper
     AttendanceDTO selectLatestByUserName(@Param("username") String username);
 
     List<AttendanceDTO> selectAllByDate(@Param("date")Date date);
+
+    int updateByUsernameAndDate(AttendanceDTO record);
 }

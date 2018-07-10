@@ -143,4 +143,10 @@ public class AttendanceServiceImpl implements AttendanceService
     {
         return mapper.insertSelective(record) > 0;
     }
+
+    @Override
+    public boolean updateAttendanceInfo(AttendanceDTO record)
+    {
+        return mapper.updateByUsernameAndDate(record) > 0;
+    }
 }

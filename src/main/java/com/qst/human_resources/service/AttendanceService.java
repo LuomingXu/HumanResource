@@ -29,10 +29,11 @@ public interface AttendanceService
 
     /**
      * 根据用户名和日期来获得, 此用户在当前日期下的考勤率
+     * 日的考勤率没有意义, 如果传来day的enum就返回null;
      *
      * @param username   用户名
      * @param date       日期
-     * @param dateChoice 选择年, 月, 日
+     * @param dateChoice 选择年, 月
      * @return 返回的list中index-0是迟到率, index-1是出勤率
      */
     List<Double> getRateByUsername(String username, Date date, AttendanceDTO.dateChoice dateChoice);

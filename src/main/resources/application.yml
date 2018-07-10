@@ -1,7 +1,7 @@
 spring:
   thymeleaf:
     mode: LEGACYHTML5
-    cache: true
+    cache: false
   datasource:
     url: jdbc:sqlserver://182.254.223.162;database=HumanResource
     username: qst

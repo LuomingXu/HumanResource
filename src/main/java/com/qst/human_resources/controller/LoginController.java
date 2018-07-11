@@ -31,10 +31,8 @@ public class LoginController {
 
 
     @RequestMapping("/LoginTo")
-    private String Login( UserDTO user){
+    private String Login(UserDTO user){
 
-        System.out.println("username: " + user.getUsername());
-        System.out.println("password: " + user.getPassword());
         UserDTO user1= service.getUserInfoByUsername(user.getUsername());
         try {
             if(PwdUtil.validatePassword(user.getPassword(),user1.getPassword())){
@@ -51,7 +49,7 @@ public class LoginController {
 
     @RequestMapping("/createUser")
     @ResponseBody
-    public String createUser(UserDTO user) throws InvalidKeySpecException, NoSuchAlgorithmException {
+    public String createUser(@RequestParam UserDTO user) throws InvalidKeySpecException, NoSuchAlgorithmException {
         user.setPassword(PwdUtil.createHash(user.getPassword()));
         if(service.insertUser(user)){
             return "create success";

@@ -34,13 +34,15 @@ import java.util.List;
 @SuppressWarnings({"all"})
 public class ManageController {
 
-
+    //用户基本表Service操作
     @Autowired
     private UserService userService;
 
+    //考勤信息Service操作
     @Autowired
     private AttendanceService attendanceService;
 
+    //用户薪水Service操作
     @Autowired
     private UserSalaryService salaryService;
 
@@ -58,7 +60,6 @@ public class ManageController {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateC = dateFormat.parse(date);
-//        System.out.println(user.toString()+date);
 
         List<UserInfoDetail> userInfoDetailLists = new ArrayList<>();
         List<UserDTO> userLists = new ArrayList<>();
@@ -69,21 +70,14 @@ public class ManageController {
         for (AttendanceDTO temp : attendanceListBydate) {
             if(temp.getUsername().equals(user.getUsername())){
                 attendance = temp;
-//                System.out.println(attendance.toString());
             }
         }
-
-//        if(user==null){
-//            List<UserDTO> userLists=userService.get
-//        }
 
         UserDTO userFound = userService.getUserInfoByUsername(user.getUsername());
         //查询为空则直接返回null
         if(userFound==null){
             return userInfoDetailLists;
         }
-//        System.out.println(userFound.toString());
-//        attendance = attendanceService.getLatestInfoByUsername(user.getUsername());
 
         UserSalaryDTO userSalary = new UserSalaryDTO();
         userSalary.setUsername(user.getUsername());
@@ -101,7 +95,6 @@ public class ManageController {
         userInfoDetail.setUserSalary(userSalary);
         userInfoDetailLists.add(userInfoDetail);
 
-//        System.out.println(userInfoDetail.toString());
 
         return userInfoDetailLists;
     }
@@ -132,18 +125,14 @@ public class ManageController {
             salaryService.insertUserSalary(userSalary);
         }
 
-
-
+        //返回给页面的信息
         if(attendanceService.updateAttendanceInfo(attendance)){
             return "处理成功,请返回上一页面";
         }else {
             return "处理失败,请返回上一页面";
         }
-//        System.out.println("date: "+date);
-//        System.out.println(userSalary.toString());
-//        System.out.println(dateStr);
 
-//        return true;
+
     }
 
 
@@ -176,7 +165,6 @@ public class ManageController {
         }else {
             return "处理失败,请返回上一页面";
         }
-//        return true;
     }
 
 

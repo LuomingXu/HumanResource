@@ -24,27 +24,13 @@ public class LoginController {
     @Autowired
     private UserService service;
 
-//    @RequestMapping("/LoginTo")
-//    @ResponseBody
-//    private String Login(@RequestParam(value = "username") String username,
-//                         @RequestParam(value = "password") String password){
-//
-//        System.out.println("username: " + username);
-//        System.out.println("password: " + password);
-//        UserDTO user= service.getUserInfoByUsername(username);
-//        try {
-//            if(PwdUtil.validatePassword(password,user.getPassword())){
-//                return "login success";
-//            }
-//        } catch (NoSuchAlgorithmException e) {
-//            e.printStackTrace();
-//        } catch (InvalidKeySpecException e) {
-//            e.printStackTrace();
-//        }
-//        return "fail";
-//    }
+    @RequestMapping("/")
+    public String test(){
+        return "login";
+    }
+
+
     @RequestMapping("/LoginTo")
-    @ResponseBody
     private String Login( UserDTO user){
 
         System.out.println("username: " + user.getUsername());
@@ -59,9 +45,8 @@ public class LoginController {
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();
         }
-        return "fail";
+        return "Fail Login";
     }
-
 
 
     @RequestMapping("/createUser")
@@ -75,20 +60,10 @@ public class LoginController {
     }
 
 
-
     @RequestMapping("/toCreateUser")
     public String toCreateUser(){
         return "createUser";
     }
 
-
-
-
-
-
-    @RequestMapping("/PWDSearch")
-    public String PWDSearch(){
-        return "pwd";
-    }
 
 }

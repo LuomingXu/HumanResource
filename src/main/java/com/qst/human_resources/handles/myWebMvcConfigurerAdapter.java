@@ -1,6 +1,5 @@
 package com.qst.human_resources.handles;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -9,6 +8,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * 配置额外的资源文件配置与springBoot配置
  */
+
+//由于采用前后端分离的写法,所以验证放在前端处理,所以不再采用
 //@Configuration
 public class myWebMvcConfigurerAdapter implements WebMvcConfigurer {
 

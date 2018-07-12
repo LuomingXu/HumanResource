@@ -15,6 +15,7 @@ import com.qst.human_resources.service.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -50,8 +51,8 @@ public class AttendanceServiceImpl implements AttendanceService
             return null;
         }
 
-        rate.add((double) late / count);
-        rate.add((double) attendance / count);
+        rate.add(BigDecimal.valueOf((double) late / count).setScale(5,BigDecimal.ROUND_HALF_UP).doubleValue());
+        rate.add(BigDecimal.valueOf((double) attendance / count).setScale(5,BigDecimal.ROUND_HALF_UP).doubleValue());
 
         return rate;
     }

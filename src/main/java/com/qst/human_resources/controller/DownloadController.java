@@ -23,7 +23,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.math.BigDecimal;
@@ -46,7 +45,7 @@ public class DownloadController
 
     @ResponseBody
     @RequestMapping("/downloadExcel")
-    public String downloadExcelReport(HttpServletRequest request, HttpServletResponse response)
+    public String downloadExcelReport(HttpServletResponse response)
     {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         UserReport userReport;
@@ -54,14 +53,10 @@ public class DownloadController
         List<UserDTO> userLists;
         String temp;
 
-        String filePath = String.format(
-                "%s\\src\\main\\resources\\templates\\UserReport.xlsx",
-                System.getProperty("user.dir"));
-
         //获取所有用户
         userLists = userService.getAllUsers();
 
-        //获取数据, 创建文件
+        //获取数据, 创建workbook
         try
         {
             for (UserDTO userDTO : userLists)
@@ -107,94 +102,23 @@ public class DownloadController
             //生成excel表
             XSSFWorkbook wb = ExcelExportUtil.exportReport(reportLists);
 
-            System.err.println("write in");
+            System.err.println("responsing...");
 
-            //创建xlsx文件
+            // 设置强制下载不打开
+            response.setContentType("application/force-download");
+            // 设置文件名
+            response.addHeader(
+                    "Content-Disposition",
+                    "attachment;fileName=" + "UserReport.xlsx");
 
-            try
-            {
-                File file = new File(filePath);
+            OutputStream outputStream = response.getOutputStream();
+            wb.write(outputStream);
 
-                if (file.exists())
-                {
-                    FileOutputStream fout = new FileOutputStream(filePath);
-                    wb.write(fout);
-                    fout.close();
-                    wb.close();
-                }
-                else
-                {
-                    if (file.createNewFile())
-                    {
-                        FileOutputStream fout = new FileOutputStream(filePath);
-                        wb.write(fout);
-                        fout.close();
-                        wb.close();
-                    }
-                    else
-                    {
-                        System.err.println("Create excel failed! ");
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
             System.err.println("done");
         }
         catch (Exception e)
         {
             e.printStackTrace();
-        }
-
-        //相应前台
-        File file = new File(filePath);
-        // 设置强制下载不打开
-        response.setContentType("application/force-download");
-        // 设置文件名
-        response.addHeader(
-                "Content-Disposition",
-                "attachment;fileName=" + file.getName());
-
-        byte[] buffer = new byte[1024];
-        FileInputStream fis = null;
-        BufferedInputStream bis = null;
-
-        try
-        {
-            fis = new FileInputStream(file);
-            bis = new BufferedInputStream(fis);
-            OutputStream os = response.getOutputStream();
-            int i = bis.read(buffer);
-            while (i != -1)
-            {
-                os.write(buffer, 0, i);
-                i = bis.read(buffer);
-            }
-            System.err.println("success");
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
-                if (bis != null)
-                {
-                    bis.close();
-                }
-                if (fis != null)
-                {
-                    fis.close();
-                }
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
         }
 
         return null;

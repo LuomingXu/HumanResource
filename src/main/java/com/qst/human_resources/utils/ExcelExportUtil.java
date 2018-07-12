@@ -71,7 +71,7 @@ public class ExcelExportUtil
         i = 1;
         for (UserReport item : param)
         {
-            row = sheet.createRow(i++);
+            row = sheet.createRow(i);
             int j = 0;
             cell=row.createCell(j++);
             cell.setCellValue(item.getUsername());

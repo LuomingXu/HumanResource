@@ -20,6 +20,12 @@ public class UserReport
     private Double attendance;
     private String mail;
 
+    public UserReport(){}
+    public UserReport(String username)
+    {
+        this.username=username;
+    }
+
     public String getUsername()
     {
         return username;

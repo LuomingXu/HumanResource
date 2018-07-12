@@ -154,7 +154,7 @@
         console.log($("#dateId").val());
 
         $.ajax({
-            url: "http://localhost:8080/searchInfo",
+            url: "/searchInfo",
             // ?date="+$("#dateId").val()+"&"+"username="+$("#userId")
             type: "post",
             dataType: "json",
@@ -283,7 +283,7 @@
         var html1;
         console.log(dateStr);
         $.ajax({
-            url: "http://localhost:8080/getWork",
+            url: "/getWork",
             // ?date="+$("#dateId").val()+"&"+"username="+$("#userId")
             type: "post",
             dataType: "json",

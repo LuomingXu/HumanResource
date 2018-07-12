@@ -50,8 +50,8 @@ public class AttendanceServiceImpl implements AttendanceService
             return null;
         }
 
-        rate.add((double) (late / count));
-        rate.add((double) (attendance / count));
+        rate.add((double) late / count);
+        rate.add((double) attendance / count);
 
         return rate;
     }

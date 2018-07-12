@@ -25,3 +25,4 @@
 /.nb-gradle/
 /test/
 
+/src/main/java/com/qst/human_resources/controller/main.java

@@ -179,13 +179,17 @@
                  //拼接表格的行和列
              if(data[i].attendance.islate==1){
                  var islate="是";
-             }else {
+             }else if(data[i].attendance.islate==0){
                  islate="否"
+             }else {
+                 islate="无"
              }
              if(data[i].attendance.isabsenteeism==1){
                  var isabsenteeism="是";
-             }else {
+             }else if(data[i].attendance.isabsenteeism==0){
                  isabsenteeism="否"
+             }else {
+                 isabsenteeism="无"
              }
              str = "<tr id='trid'><td>" + data[i].user.username + "</td><td>" + data[i].user.email + "</td><td>"+data[i].userSalary.salary+ "</td><td>"+ islate+ "</td><td>"+isabsenteeism+  "" +
                  "</td><td >"+ "<span  onclick='manager()'>修改</span>" +"<span  style='margin: 5px' onclick='work()'>查看出勤</span>"  +"</td></tr> ";
@@ -203,7 +207,7 @@
 
 
         //弹层html代码
-        html="<form action='/updateUserDeInfo' method='post'>";
+        html="<form class='form-signin' action='/updateUserDeInfo' method='post'>";
         html+= "<div><input readonly='readonly' name='username' style='text' class='text-center' placeholder=\"Username\" id='usernameId' value='"+childs[0].innerText+"  '></div><br/>";
         html+= "<div><input readonly='readonly' name='email' style='text' class='text-center' placeholder=\"Email\" id='eamilId' value='"+childs[1].innerText+" '></div><br/>";
         html+= "<div><input name='salary' type='' class='text-center' placeholder=\"Salary\" id='salaryId' value='"+childs[2].innerText+"'></div><br/>";
@@ -224,7 +228,7 @@
         var date = new Date();
         console.log(date.toString());
         //弹层html代码
-        html="<form action='/createUserInfo' method='post'>";
+        html="<form class='form-signin' action='/createUserInfo' method='post'>";
         html+= "<div><input name='username' style='text' class='text-center' placeholder=\"Username\" id='usernameId' ' ></div><br/>";
         html+= "<div><input name='email' style='text' class='text-center' placeholder=\"Email\" id='usernameId' '></div><br/>";
         html+= "<div><input name='salary' type='' class='text-center' placeholder=\"Salary\" id='SalaryId''></div><br/>";

@@ -10,7 +10,7 @@ spring:
 mybatis:
   mapper-locations: mapper/*.xml
 sensor:
-  port: 8080
+  port: 8090
   dataLength: 27
 server:
-  port: 8080
+  port: 8090

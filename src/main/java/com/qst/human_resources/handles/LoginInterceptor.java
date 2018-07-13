@@ -81,17 +81,17 @@ public class LoginInterceptor implements HandlerInterceptor
             HandlerMethod h = (HandlerMethod) handler;
             String log = "-----------------------开始计时:" +
                     new SimpleDateFormat("yy-MM-dd HH:mm:ss.SSS zzzz").format(startTime) +
-                    "-----------------------\n" +
-                    "IP        : " + request.getRemoteAddr() + "\n" +
-                    "Host      : " + request.getRemoteHost() + "\n" +
-                    "ServerPort: " + request.getServerPort() + "\n" +
-                    "LocalPort : " + request.getLocalPort() + "\n" +
-                    "RemotePort: " + request.getRemotePort() + "\n" +
-                    "RemoteUser: " + request.getRemoteUser() + "\n" +
-                    "Controller: " + h.getBean().getClass().getName() + "\n" +
-                    "Method    : " + h.getMethod().getName() + "\n" +
-                    "Params    : " + getParamString(request.getParameterMap()) + "\n" +
-                    "URI       : " + request.getRequestURI() + "\n";
+                    "-----------------------\r\n" +
+                    "IP        : " + request.getRemoteAddr() + "\r\n" +
+                    "Host      : " + request.getRemoteHost() + "\r\n" +
+                    "ServerPort: " + request.getServerPort() + "\r\n" +
+                    "LocalPort : " + request.getLocalPort() + "\r\n" +
+                    "RemotePort: " + request.getRemotePort() + "\r\n" +
+                    "RemoteUser: " + request.getRemoteUser() + "\r\n" +
+                    "Controller: " + h.getBean().getClass().getName() + "\r\n" +
+                    "Method    : " + h.getMethod().getName() + "\r\n" +
+                    "Params    : " + getParamString(request.getParameterMap()) + "\r\n" +
+                    "URI       : " + request.getRequestURI() + "\r\n";
             System.err.println(log);
             LogUtil.LogWriteIn(log);
         }
@@ -138,8 +138,8 @@ public class LoginInterceptor implements HandlerInterceptor
         long executeTime = endTime - startTime;
         if (handler instanceof HandlerMethod)
         {
-            String log = "CostTime  : " + executeTime + "ms" + "\n" +
-                    "----------------------------------------------\n\n\n\n";
+            String log = "CostTime  : " + executeTime + "ms" + "\r\n" +
+                    "----------------------------------------------\r\n\r\n\r\n\r\n";
             System.err.println(log);
             LogUtil.LogWriteIn(log);
         }
@@ -175,12 +175,12 @@ public class LoginInterceptor implements HandlerInterceptor
             String log =
             "-----------------------计时结束：" +
             new SimpleDateFormat("yy-MM-dd HH:mm:ss.SSS zzzz").format(endTime) +
-            "-----------------------\n" +
-            "耗时                 ：" + (endTime - beginTime) + "ms\n" +
-            "URI                 :" + request.getRequestURI() + "\n" +
-            "最大内存             : " + Runtime.getRuntime().maxMemory() / 1024 / 1024 + "m\n" +
-            "已分配内存           : " + Runtime.getRuntime().totalMemory() / 1024 / 1024 + "m\n" +
-            "已分配内存中的剩余空间: " + Runtime.getRuntime().freeMemory() / 1024 / 1024 + "m\n" +
+            "-----------------------\r\n" +
+            "耗时                 ：" + (endTime - beginTime) + "ms\r\n" +
+            "URI                 :" + request.getRequestURI() + "\r\n" +
+            "最大内存             : " + Runtime.getRuntime().maxMemory() / 1024 / 1024 + "m\r\n" +
+            "已分配内存           : " + Runtime.getRuntime().totalMemory() / 1024 / 1024 + "m\r\n" +
+            "已分配内存中的剩余空间: " + Runtime.getRuntime().freeMemory() / 1024 / 1024 + "m\r\n" +
             "最大可用内存         : " + (
             Runtime.getRuntime().maxMemory() -
                     Runtime.getRuntime().totalMemory() + Runtime.getRuntime().freeMemory())

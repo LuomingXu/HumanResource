@@ -18,24 +18,23 @@ public class LogUtil
 
     public static void LogWriteIn(String log)
     {
-        log = "\n" + log;
+        log = "\r\n" + log;
         File file = new File(filePath);
         BufferedWriter bw = null;
         try
         {
             if (file.exists())
             {
-                bw = new BufferedWriter(new FileWriter(file, true));
+                OutputStream os=new FileOutputStream(file, true);
+                bw=new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
                 bw.write(log);
             }
             else
             {
                 if (file.createNewFile())
                 {
-                    OutputStream os=new FileOutputStream(file);
+                    OutputStream os=new FileOutputStream(file, true);
                     bw=new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
-                    bw.write("中文test");
-                    bw = new BufferedWriter(new FileWriter(file, true));
                     bw.write(log);
                 }
                 else

@@ -12,5 +12,9 @@
 -
     实现了的功能, 在项目的网址里可以看到, 由于对于前端的东西不是太懂, 所以前端实现的功能并没有多少, 页面的绘制为bootstrap
     默认登录名为123, 123
+    
+Deployment command
+-
+    win-ps: java -jar human_resources-0.0.1-SNAPSHOT.jar
 
 [人力资源管理]:http://182.254.223.162:8090 "项目网址"

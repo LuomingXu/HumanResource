@@ -163,17 +163,20 @@ public class LoginController
 
     }
 
-
+    
     @RequestMapping("/createUser")
     @ResponseBody
-    public String createUser(@RequestParam UserDTO user) throws InvalidKeySpecException, NoSuchAlgorithmException
+    public Map<String, Object> createUser(UserDTO user) throws InvalidKeySpecException, NoSuchAlgorithmException
     {
+        System.out.println(user.toString());
+        Map<String, Object> map = new HashMap<>();
         user.setPassword(PwdUtil.createHash(user.getPassword()));
-        if (userService.insertUser(user))
-        {
-            return "create success";
+        if (userService.insertUser(user)) {
+            map.put("result", "1");
+        }else {
+            map.put("result", "0");
         }
-        return "fail create";
+        return map;
     }
 
     @RequestMapping("/toCreateUser")

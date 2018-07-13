@@ -40,7 +40,8 @@ public class myWebMvcConfigurerAdapter implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //添加自定义拦截器,排除LoginTo/toLogin
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns("/toCreateUser","/createUser");
     }
 
 

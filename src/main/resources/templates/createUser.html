@@ -11,25 +11,13 @@
 
     <title>create user</title>
 
-    <!-- Bootstrap core CSS -->
-    <!--<link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <!--<link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
-
-    <!-- Custom styles for this template -->
     <link th:href="@{/signin.css}" rel="stylesheet" type="text/css">
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--&lt;!&ndash;[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]&ndash;&gt;-->
-    <!--<script src="bootstrap/js/ie-emulation-modes-warning.js"></script>-->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>-->
-    <!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
+    <script src ="jquery-3.3.1.min.js" ></script>
 
 </head>
 
@@ -37,7 +25,7 @@
 
 <div class="container">
 
-    <form class="form-signin" action="/createUser">
+    <div class="form-signin" action="/createUser">
         <h2 class="form-signin-heading">Register</h2>
         <label for="user-name-label" class="sr-only">User name</label>
         <input type="text" id="user-name-label" class="form-control"  placeholder="Username" required autofocus name="username">
@@ -53,11 +41,43 @@
             <br>
             <input type="radio" name="authority" value="admin">Admin
         </div>
+        <br/>
+        <button id="doCreate" class="btn btn-lg btn-primary btn-block" type="submit">create</button>
+    </div>
 
+    <script>
 
-        <br></br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">create</button>
-    </form>
+        $(function() {
+            //简单登录操作
+            $("#doCreate").click(function (e) {
+                console.log("doLogin");
+                $.ajax({
+                    type : "post",
+                    url : "/createUser",
+                    data : {
+                        "username" : $("#user-name-label").val(),
+                        "password" : $("#inputPassword").val(),
+                        "email": $("#inputEmail").val(),
+                        "authority": $("input[name='authority']").val()
+                    },
+                    dataType : "json",
+                    success : function(data) {
+                        console.log(data);
+                        if (data.result == "1") {
+                            alert("创建成功");
+                            window.location.href ="/toLogin";
+                        } else {
+                            alert("创建失败,用户名已被占用!");
+                        }
+                    },
+                    error:function () {
+                        alert("创建失败,用户名已被占用!");
+                    }
+                });
+            });
+        });
+    </script>
+
 
 </div> <!-- /container -->
 

@@ -13,14 +13,14 @@
 
     <!-- Bootstrap core CSS -->
     <!--<link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!--<link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
 
     <!-- Custom styles for this template -->
-    <link th:href="@{/signin.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/signin.css}" rel="stylesheet" type="text/css" href="signin.css">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--&lt;!&ndash;[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]&ndash;&gt;-->
@@ -60,7 +60,6 @@
 <script src ="jquery-3.3.1.min.js" ></script>
 
 <script>
-
     $(function() {
         //简单登录操作
         $("#doLogin").click(function (e) {
@@ -78,7 +77,7 @@
                     if (data.result == "1") {
                         window.location.href ="/toConsole";
                     } else {
-                        alert("账号密码不能为空！");
+                        alert("账号或密码错误！");
                     }
                 }
             });

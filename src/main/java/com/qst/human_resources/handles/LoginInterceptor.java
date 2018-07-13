@@ -24,7 +24,6 @@ import java.util.logging.Logger;
  * @create: 2018-07-09 13:55
  */
 
-
 public class LoginInterceptor implements HandlerInterceptor
 {
 
@@ -56,6 +55,9 @@ public class LoginInterceptor implements HandlerInterceptor
 
     /**
      * 将ErrorStack转化为String.
+     *
+     * @param e throw 过来的exception
+     * @return
      */
     private static String getStackTraceAsString(Throwable e)
     {
@@ -120,13 +122,14 @@ public class LoginInterceptor implements HandlerInterceptor
     }
 
     /**
-     * 在当前请求进行处理之后，也就是Controller 方法调用之后执行，但是它会在DispatcherServlet 进行视图返回渲染之前被调用，所以我们可以在这个方法中对Controller 处理之后的ModelAndView 对象进行操作。
+     * 在当前请求进行处理之后，也就是Controller 方法调用之后执行，
+     * 但是它会在DispatcherServlet 进行视图返回渲染之前被调用，
+     * 所以我们可以在这个方法中对Controller 处理之后的ModelAndView 对象进行操作。
      *
-     * @param request
-     * @param response
+     * @param request      http请求
+     * @param response     返回
      * @param handler
      * @param modelAndView
-     * @throws Exception
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
@@ -145,13 +148,13 @@ public class LoginInterceptor implements HandlerInterceptor
 
 
     /**
-     * 该方法将在整个请求结束之后，也就是在DispatcherServlet 渲染了对应的视图之后执行。这个方法的主要作用是用于进行资源清理工作的。
+     * 该方法将在整个请求结束之后，也就是在DispatcherServlet
+     * 渲染了对应的视图之后执行。这个方法的主要作用是用于进行资源清理工作的。
      *
-     * @param request
-     * @param response
-     * @param handler
-     * @param ex
-     * @throws Exception
+     * @param request  http请求
+     * @param response 返回
+     * @param handler  对象
+     * @param ex       异常
      */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
@@ -170,16 +173,19 @@ public class LoginInterceptor implements HandlerInterceptor
                 System.err.println("Controller异常: " + getStackTraceAsString(ex));
             }
 
-            String log=
-                    ("-----------------------计时结束：" +
-                            new SimpleDateFormat("hh:mm:ss.SSS").format(endTime) +
-                            "-----------------------\n" +
-                            "耗时                 ：" + (endTime - beginTime) + "ms\n" +
-                            "URI                 :" + request.getRequestURI() + "\n" +
-                            "最大内存             : " + Runtime.getRuntime().maxMemory() / 1024 / 1024 + "m\n" +
-                            "已分配内存           : " + Runtime.getRuntime().totalMemory() / 1024 / 1024 + "m\n" +
-                            "已分配内存中的剩余空间: " + Runtime.getRuntime().freeMemory() / 1024 / 1024 + "m\n" +
-                            "最大可用内存         : " + (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory() + Runtime.getRuntime().freeMemory()) / 1024 / 1024 + "m");
+            String log =
+                    (
+            "-----------------------计时结束：" +
+                    new SimpleDateFormat("hh:mm:ss.SSS").format(endTime) +
+                    "-----------------------\n" +
+                    "耗时                 ：" + (endTime - beginTime) + "ms\n" +
+                    "URI                 :" + request.getRequestURI() + "\n" +
+                    "最大内存             : " + Runtime.getRuntime().maxMemory() / 1024 / 1024 + "m\n" +
+                    "已分配内存           : " + Runtime.getRuntime().totalMemory() / 1024 / 1024 + "m\n" +
+                    "已分配内存中的剩余空间: " + Runtime.getRuntime().freeMemory() / 1024 / 1024 + "m\n" +
+                    "最大可用内存         : " + (Runtime.getRuntime().maxMemory() -
+                    Runtime.getRuntime().totalMemory() + Runtime.getRuntime().freeMemory())
+                    / 1024 / 1024 + "m");
             LogUtil.LogWriteIn(log);
             startTimeThreadLocal.remove();
         }

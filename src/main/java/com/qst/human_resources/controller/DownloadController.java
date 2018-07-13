@@ -24,7 +24,6 @@ public class DownloadController
     @RequestMapping("/downloadExcel")
     public String downloadExcelReport(HttpServletResponse response)
     {
-
         LogUtil.LogWriteIn("start download excel...");
         String filePath = String.format("%s\\UserReport.xlsx"
                 , System.getProperty("user.dir"));
@@ -66,6 +65,7 @@ public class DownloadController
 
         System.err.println("excel done");
         LogUtil.LogWriteIn("excel done");
+        
         return null;
     }
 }

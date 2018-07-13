@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,9 +25,7 @@ import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /*
  * @description:
@@ -138,26 +137,22 @@ public class LoginController
 
 
     @RequestMapping("/LoginTo")
-    private String Login(UserDTO user)
+    private String Login(UserDTO user , HttpServletRequest request)
     {
 
-        UserDTO user1 = userService.getUserInfoByUsername(user.getUsername());
-        try
-        {
-            if (PwdUtil.validatePassword(user.getPassword(), user1.getPassword()))
-            {
+        UserDTO user1= userService.getUserInfoByUsername(user.getUsername());
+        try {
+            if(PwdUtil.validatePassword(user.getPassword(),user1.getPassword())){
+                request.getSession().setAttribute("user", user);
                 return "console";
             }
-        }
-        catch (NoSuchAlgorithmException e)
-        {
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-        }
-        catch (InvalidKeySpecException e)
-        {
+        } catch (InvalidKeySpecException e) {
             e.printStackTrace();
         }
         return "Fail Login";
+
     }
 
 

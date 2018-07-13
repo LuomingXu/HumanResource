@@ -1,5 +1,6 @@
 package com.qst.human_resources.handles;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -10,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 
 //由于采用前后端分离的写法,所以验证放在前端处理,所以不再采用
-//@Configuration
+@Configuration
 public class myWebMvcConfigurerAdapter implements WebMvcConfigurer {
 
     /**
@@ -44,8 +45,8 @@ public class myWebMvcConfigurerAdapter implements WebMvcConfigurer {
 //      addPathPatterns 添加拦截器规则
 //        excludePathPatterns 用户排除拦截
 //        addPathPatterns("/**")对所有请求都拦截，但是排除了/toLogin和/login请求的拦截。
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/toLogin", "login");
-
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/LoginTo", "/toLogin");
+        WebMvcConfigurer.super.addInterceptors(registry);
     }
 
 

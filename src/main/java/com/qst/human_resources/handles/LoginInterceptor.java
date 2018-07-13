@@ -1,6 +1,7 @@
 package com.qst.human_resources.handles;
 
-import org.apache.catalina.User;
+//import org.apache.catalina.User;
+import com.qst.human_resources.dto.UserDTO;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,12 +23,15 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         boolean flag=true;
-        User user = (User) request.getSession().getAttribute("user");
-//        System.out.println(log.getName()+user.getUsername());
+        UserDTO user = (UserDTO) request.getSession().getAttribute("user");
+        System.out.println("preHandle");
         if(null==user){
+            System.out.println("用户不存在");
             response.sendRedirect("toLogin");
+//            System.out.println(log.getName()+user.getUsername());
             flag = false;
         }else {
+            System.out.println("用户存在");
             System.out.println(log.getName()+user.getUsername());
             flag = true;
         }

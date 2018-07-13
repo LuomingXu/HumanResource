@@ -152,7 +152,7 @@ public class ManageController {
         userSalary.setMonth(attendance.getDate().getMonth()+1);
         attendance.setDate(date);
 
-        //已存在用户则不能插入
+        //已存在用户则不能插入,不采用异常处理
         if(!userService.isUserExist(user.getUsername())){
             userService.insertUser(user);
         }

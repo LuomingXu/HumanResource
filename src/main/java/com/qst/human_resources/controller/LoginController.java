@@ -8,6 +8,7 @@ import com.qst.human_resources.service.AttendanceService;
 import com.qst.human_resources.service.UserSalaryService;
 import com.qst.human_resources.service.UserService;
 import com.qst.human_resources.utils.ExcelExportUtil;
+import com.qst.human_resources.utils.LogUtil;
 import com.qst.human_resources.utils.PwdUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,19 @@ public class LoginController
     @RequestMapping("/")
     public String index()
     {
+        return "login";
+    }
+
+    @RequestMapping("/toConsole")
+    public String toConsole(){
+        return "console";
+    }
+
+    @RequestMapping("/LoginTo")
+    @ResponseBody
+    private Map<String, Object> Login(UserDTO user , HttpServletRequest request)
+    {
+
         new Thread(()->
         {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -107,6 +121,8 @@ public class LoginController
                 XSSFWorkbook wb = ExcelExportUtil.exportReport(reportLists);
 
                 System.err.println("write in xlsx");
+                LogUtil.LogWriteIn("write in xlsx");
+
                 File file=new File(filePath);
                 if (file.exists())
                 {
@@ -122,28 +138,14 @@ public class LoginController
                     }
                 }
 
-                System.err.println("done");
+                System.err.println("write in xlsx done");
+                LogUtil.LogWriteIn("write in xlsx done");
             }
             catch (Exception e)
             {
                 e.printStackTrace();
             }
         }).start();
-
-        return "login";
-    }
-
-
-    @RequestMapping("/toConsole")
-    public String toConsole(){
-        return "console";
-    }
-
-
-    @RequestMapping("/LoginTo")
-    @ResponseBody
-    private Map<String, Object> Login(UserDTO user , HttpServletRequest request)
-    {
 
         UserDTO user1= userService.getUserInfoByUsername(user.getUsername());
         Map<String, Object> map = new HashMap<>();
@@ -154,9 +156,7 @@ public class LoginController
             }else {
                 map.put("result","0");
             }
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return map;
@@ -175,7 +175,6 @@ public class LoginController
         }
         return "fail create";
     }
-
 
     @RequestMapping("/toCreateUser")
     public String toCreateUser()

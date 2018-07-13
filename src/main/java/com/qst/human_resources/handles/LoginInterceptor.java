@@ -1,17 +1,17 @@
 package com.qst.human_resources.handles;
 
 import com.qst.human_resources.dto.UserDTO;
+import com.qst.human_resources.utils.LogUtil;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import sun.swing.FilePane;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Map;
@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 
 public class LoginInterceptor implements HandlerInterceptor
 {
-    private Logger log = Logger.getLogger(String.valueOf(LoginInterceptor.class));
+
 
     private static final org.slf4j.Logger LOGGER =
             LoggerFactory.getLogger(LoggerFactory.class);
@@ -78,7 +78,7 @@ public class LoginInterceptor implements HandlerInterceptor
         if (handler instanceof HandlerMethod)
         {
             HandlerMethod h = (HandlerMethod) handler;
-            String sb = "-----------------------开始计时:" +
+            String log = "-----------------------开始计时:" +
                     new SimpleDateFormat("hh:mm:ss.SSS").format(startTime) +
                     "-----------------------\n" +
                     "IP        : " + request.getRemoteAddr() + "\n" +
@@ -91,10 +91,11 @@ public class LoginInterceptor implements HandlerInterceptor
                     "Method    : " + h.getMethod().getName() + "\n" +
                     "Params    : " + getParamString(request.getParameterMap()) + "\n" +
                     "URI       : " + request.getRequestURI() + "\n";
-            System.err.println(sb);
+            System.err.println(log);
+            LogUtil.LogWriteIn(log);
         }
 
-        if (request.getRequestURI().equals("/LoginTo")||request.getRequestURI().equals("/toLogin"))
+        if (request.getRequestURI().equals("/LoginTo") || request.getRequestURI().equals("/toLogin"))
         {
             System.out.println("not redirect. ");
         }
@@ -135,9 +136,10 @@ public class LoginInterceptor implements HandlerInterceptor
         long executeTime = endTime - startTime;
         if (handler instanceof HandlerMethod)
         {
-            String sb = "CostTime  : " + executeTime + "ms" + "\n" +
-                    "----------------------------------------------";
-            System.err.println(sb);
+            String log = "CostTime  : " + executeTime + "ms" + "\n" +
+                    "----------------------------------------------\n\n\n\n";
+            System.err.println(log);
+            LogUtil.LogWriteIn(log);
         }
     }
 
@@ -168,16 +170,17 @@ public class LoginInterceptor implements HandlerInterceptor
                 System.err.println("Controller异常: " + getStackTraceAsString(ex));
             }
 
-            System.err.println
+            String log=
                     ("-----------------------计时结束：" +
                             new SimpleDateFormat("hh:mm:ss.SSS").format(endTime) +
                             "-----------------------\n" +
-                    "耗时                 ：" + (endTime - beginTime) + "ms\n" +
-                    "URI                 :" + request.getRequestURI() + "\n" +
-                    "最大内存             : " + Runtime.getRuntime().maxMemory() / 1024 / 1024 + "m\n" +
-                    "已分配内存           : " + Runtime.getRuntime().totalMemory() / 1024 / 1024 + "m\n" +
-                    "已分配内存中的剩余空间: " + Runtime.getRuntime().freeMemory() / 1024 / 1024 + "m\n" +
-                    "最大可用内存         : " + (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory() + Runtime.getRuntime().freeMemory()) / 1024 / 1024 + "m");
+                            "耗时                 ：" + (endTime - beginTime) + "ms\n" +
+                            "URI                 :" + request.getRequestURI() + "\n" +
+                            "最大内存             : " + Runtime.getRuntime().maxMemory() / 1024 / 1024 + "m\n" +
+                            "已分配内存           : " + Runtime.getRuntime().totalMemory() / 1024 / 1024 + "m\n" +
+                            "已分配内存中的剩余空间: " + Runtime.getRuntime().freeMemory() / 1024 / 1024 + "m\n" +
+                            "最大可用内存         : " + (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory() + Runtime.getRuntime().freeMemory()) / 1024 / 1024 + "m");
+            LogUtil.LogWriteIn(log);
             startTimeThreadLocal.remove();
         }
     }

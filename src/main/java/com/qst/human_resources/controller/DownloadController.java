@@ -9,6 +9,7 @@
 
 package com.qst.human_resources.controller;
 
+import com.qst.human_resources.utils.LogUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +24,8 @@ public class DownloadController
     @RequestMapping("/downloadExcel")
     public String downloadExcelReport(HttpServletResponse response)
     {
+
+        LogUtil.LogWriteIn("start download excel...");
         String filePath = String.format("%s\\UserReport.xlsx"
                 , System.getProperty("user.dir"));
 
@@ -49,6 +52,7 @@ public class DownloadController
                     i = bis.read(buffer);
                 }
                 System.err.println("buffer done");
+                LogUtil.LogWriteIn("buffer donw");
             }
             catch (Exception e)
             {
@@ -60,8 +64,8 @@ public class DownloadController
             e.printStackTrace();
         }
 
-        System.err.println("done");
-
+        System.err.println("excel done");
+        LogUtil.LogWriteIn("excel done");
         return null;
     }
 }

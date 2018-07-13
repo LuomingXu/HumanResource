@@ -134,22 +134,32 @@ public class LoginController
     }
 
 
+    @RequestMapping("/toConsole")
+    public String toConsole(){
+        return "console";
+    }
+
+
     @RequestMapping("/LoginTo")
-    private String Login(UserDTO user , HttpServletRequest request)
+    @ResponseBody
+    private Map<String, Object> Login(UserDTO user , HttpServletRequest request)
     {
 
         UserDTO user1= userService.getUserInfoByUsername(user.getUsername());
+        Map<String, Object> map = new HashMap<>();
         try {
             if(PwdUtil.validatePassword(user.getPassword(),user1.getPassword())){
                 request.getSession().setAttribute("user", user);
-                return "console";
+                map.put("result","1");
+            }else {
+                map.put("result","0");
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();
         }
-        return "Fail Login";
+        return map;
 
     }
 

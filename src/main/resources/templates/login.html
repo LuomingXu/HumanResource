@@ -37,7 +37,7 @@
 
 <div class="container">
 
-    <form class="form-signin" action="/LoginTo">
+    <div class="form-signin">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="user-name-label" class="sr-only">User name</label>
         <input type="text" id="user-name-label" class="form-control"  placeholder="Username" required autofocus name="username">
@@ -52,14 +52,41 @@
                 <a href="/toCreateUser" style="padding-left: 100px">注册用户</a>
             </label>
         </div>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </form>
+        <button id="doLogin" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </div>
 
 </div> <!-- /container -->
+<!--<script src="../static/jquery-3.3.1.min.js" th:src="@{/query-3.3.1.min.js}"></script>-->
+<script src ="jquery-3.3.1.min.js" ></script>
 
+<script>
+
+    $(function() {
+        //简单登录操作
+        $("#doLogin").click(function (e) {
+            console.log("doLogin");
+            $.ajax({
+                type : "post",
+                url : "/LoginTo",
+                data : {
+                    "username" : $("#user-name-label").val(),
+                    "password" : $("#inputPassword").val()
+                },
+                dataType : "json",
+                success : function(data) {
+                    console.log(data);
+                    if (data.result == "1") {
+                        window.location.href ="/toConsole";
+                    } else {
+                        alert("账号密码不能为空！");
+                    }
+                }
+            });
+        });
+    });
+</script>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+<!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
 </body>
 </html>

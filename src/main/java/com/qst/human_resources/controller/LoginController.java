@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -47,7 +45,7 @@ public class LoginController
     private AttendanceService attendanceService;
 
     @RequestMapping("/")
-    public String test()
+    public String index()
     {
         new Thread(()->
         {

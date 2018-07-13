@@ -45,7 +45,7 @@ public class myWebMvcConfigurerAdapter implements WebMvcConfigurer {
 //      addPathPatterns 添加拦截器规则
 //        excludePathPatterns 用户排除拦截
 //        addPathPatterns("/**")对所有请求都拦截，但是排除了/toLogin和/login请求的拦截。
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/LoginTo", "/toLogin");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**");
         WebMvcConfigurer.super.addInterceptors(registry);
     }
 

@@ -145,7 +145,17 @@ public class ManageController {
 
     }
 
-
+    /**
+     * 管理员进行用户的信息创建
+     * @param attendance
+     * @param userSalary
+     * @param user
+     * @param request
+     * @return
+     * @throws ParseException
+     * @throws InvalidKeySpecException
+     * @throws NoSuchAlgorithmException
+     */
     @RequestMapping(value = "/createUserInfo",method = RequestMethod.POST)
     @ResponseBody
     public String createUserInfo(AttendanceDTO attendance,
@@ -188,6 +198,13 @@ public class ManageController {
     }
 
 
+    /**
+     * 得到出勤信息
+     * @param username
+     * @param dateStr
+     * @return
+     * @throws ParseException
+     */
     @RequestMapping(value = "/getWork",method = RequestMethod.POST)
     @ResponseBody
     public List<Double> getWork(String username,

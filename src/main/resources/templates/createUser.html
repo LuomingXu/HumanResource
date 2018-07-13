@@ -49,9 +49,9 @@
     <script>
 
         $(function() {
-            //简单登录操作
+
+            // 用户注册
             $("#doCreate").click(function (e) {
-                console.log("doLogin");
                 $.ajax({
                     type : "post",
                     url : "/createUser",
@@ -59,7 +59,7 @@
                         "username" : $("#user-name-label").val(),
                         "password" : $("#inputPassword").val(),
                         "email": $("#inputEmail").val(),
-                        "authority": $("input[name='authority']").val()
+                        "authority": $("input[name='authority']:checked").val()
                     },
                     dataType : "json",
                     success : function(data) {
@@ -83,7 +83,5 @@
 </div> <!-- /container -->
 
 
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>

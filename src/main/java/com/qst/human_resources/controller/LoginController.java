@@ -56,6 +56,12 @@ public class LoginController
         return "console";
     }
 
+    /**
+     * 用户登录
+     * @param user
+     * @param request
+     * @return
+     */
     @RequestMapping("/LoginTo")
     @ResponseBody
     private Map<String, Object> Login(UserDTO user , HttpServletRequest request)
@@ -163,7 +169,14 @@ public class LoginController
 
     }
 
-    
+
+    /**
+     * 用户注册
+     * @param user
+     * @return
+     * @throws InvalidKeySpecException
+     * @throws NoSuchAlgorithmException
+     */
     @RequestMapping("/createUser")
     @ResponseBody
     public Map<String, Object> createUser(UserDTO user) throws InvalidKeySpecException, NoSuchAlgorithmException
@@ -178,6 +191,7 @@ public class LoginController
         }
         return map;
     }
+
 
     @RequestMapping("/toCreateUser")
     public String toCreateUser()

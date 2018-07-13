@@ -37,7 +37,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Dashboard</a></li>
                 <li><a href="#">Settings</a></li>
-                <li><a href="#">Profile</a></li>
+                <li><a href="#" id="test">Profile</a></li>
                 <li><a href="#" id="ExitId">Exit</a></li>
             </ul>
             <!--<form class="navbar-form navbar-right">-->
@@ -290,6 +290,7 @@
                 html1 = "<label class='label label-info' style='font-size: 16px'>这一个月的迟到率为" + lateShow + "<br/>";
                 html1 += "<label class='label label-info' style='font-size: 16px'>这一个月的出勤率为" + workShow + "<br/>";
 
+                //出勤率的弹层
                 layer.open({
                     type: 1 //Page层类型
                     ,area: ['500px', '400px']
@@ -310,15 +311,18 @@
     }
 
     $(function () {
+        //用户注销
         $("#ExitId").click(function () {
-            alert("正在注销");
-            $.ajax({
-                url: "/shutdown",
-                method: "post"
-            });
-            alert("注销成功");
-            window.location.href ="/toLogin";
-        })
+            if(confirm("是否确认注销")){
+                $.ajax({
+                    url: "/shutdown",
+                    method: "post"
+                });
+                alert("注销成功");
+                window.location.href ="/toLogin";
+            }
+
+        });
 
 
     })

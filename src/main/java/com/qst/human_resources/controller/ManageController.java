@@ -16,13 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /*
  * @description:
@@ -112,8 +111,19 @@ public class ManageController {
     @RequestMapping(value = "/updateUserDeInfo", method = RequestMethod.POST)
     @ResponseBody
     public String updateUser(AttendanceDTO attendance,
-                              UserSalaryDTO userSalary,
-                              String dateStr) throws ParseException {
+                             UserSalaryDTO userSalary,
+                             String dateStr,
+                             HttpServletRequest request) throws ParseException {
+
+
+        UserDTO presentUser = (UserDTO) request.getSession().getAttribute("user");
+
+        if(presentUser!=null){
+            presentUser=userService.getUserInfoByUsername(presentUser.getUsername());
+            if(presentUser.getAuthority().equals("normal")){
+                return "你不是管理员,无权操作";
+            }
+        }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = dateFormat.parse(dateStr);
@@ -140,7 +150,17 @@ public class ManageController {
     @ResponseBody
     public String createUserInfo(AttendanceDTO attendance,
                                   UserSalaryDTO userSalary,
-                                  UserDTO user) throws ParseException, InvalidKeySpecException, NoSuchAlgorithmException {
+                                  UserDTO user,
+                                 HttpServletRequest request) throws ParseException, InvalidKeySpecException, NoSuchAlgorithmException {
+
+        UserDTO presentUser = (UserDTO) request.getSession().getAttribute("user");
+
+        if(presentUser!=null){
+            presentUser=userService.getUserInfoByUsername(presentUser.getUsername());
+            if(presentUser.getAuthority().equals("normal")){
+                return "你不是管理员,无权操作";
+            }
+        }
 
         user.setAuthority("normal");
         //默认密码为123456
@@ -180,6 +200,22 @@ public class ManageController {
         return attendanceService.getRateByUsername(username, date, AttendanceDTO.dateChoice.month);
 
     }
+
+
+    /**
+     * 退出当前用户登录
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/shutdown",method = RequestMethod.POST)
+    public Map<String, Object> shutdown(HttpServletRequest request){
+
+        Map<String, Object> map = new HashMap<>();
+        request.getSession().removeAttribute("user");
+        map.put("result", "1");
+        return map;
+    }
+
 
 
 

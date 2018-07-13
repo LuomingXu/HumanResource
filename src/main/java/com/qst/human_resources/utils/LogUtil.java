@@ -20,6 +20,7 @@ public class LogUtil
 
     public static void LogWriteIn(String log)
     {
+        log = "\n" + log;
         File file = new File(filePath);
         BufferedWriter bw = null;
         try

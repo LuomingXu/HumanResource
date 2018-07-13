@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -26,8 +27,6 @@ import java.util.logging.Logger;
 
 public class LoginInterceptor implements HandlerInterceptor
 {
-
-
     private static final org.slf4j.Logger LOGGER =
             LoggerFactory.getLogger(LoggerFactory.class);
 
@@ -81,7 +80,7 @@ public class LoginInterceptor implements HandlerInterceptor
         {
             HandlerMethod h = (HandlerMethod) handler;
             String log = "-----------------------开始计时:" +
-                    new SimpleDateFormat("hh:mm:ss.SSS").format(startTime) +
+                    new SimpleDateFormat("yy-MM-dd HH:mm:ss.SSS zzzz").format(startTime) +
                     "-----------------------\n" +
                     "IP        : " + request.getRemoteAddr() + "\n" +
                     "Host      : " + request.getRemoteHost() + "\n" +
@@ -174,18 +173,18 @@ public class LoginInterceptor implements HandlerInterceptor
             }
 
             String log =
-                    (
             "-----------------------计时结束：" +
-                    new SimpleDateFormat("hh:mm:ss.SSS").format(endTime) +
-                    "-----------------------\n" +
-                    "耗时                 ：" + (endTime - beginTime) + "ms\n" +
-                    "URI                 :" + request.getRequestURI() + "\n" +
-                    "最大内存             : " + Runtime.getRuntime().maxMemory() / 1024 / 1024 + "m\n" +
-                    "已分配内存           : " + Runtime.getRuntime().totalMemory() / 1024 / 1024 + "m\n" +
-                    "已分配内存中的剩余空间: " + Runtime.getRuntime().freeMemory() / 1024 / 1024 + "m\n" +
-                    "最大可用内存         : " + (Runtime.getRuntime().maxMemory() -
+            new SimpleDateFormat("yy-MM-dd HH:mm:ss.SSS zzzz").format(endTime) +
+            "-----------------------\n" +
+            "耗时                 ：" + (endTime - beginTime) + "ms\n" +
+            "URI                 :" + request.getRequestURI() + "\n" +
+            "最大内存             : " + Runtime.getRuntime().maxMemory() / 1024 / 1024 + "m\n" +
+            "已分配内存           : " + Runtime.getRuntime().totalMemory() / 1024 / 1024 + "m\n" +
+            "已分配内存中的剩余空间: " + Runtime.getRuntime().freeMemory() / 1024 / 1024 + "m\n" +
+            "最大可用内存         : " + (
+            Runtime.getRuntime().maxMemory() -
                     Runtime.getRuntime().totalMemory() + Runtime.getRuntime().freeMemory())
-                    / 1024 / 1024 + "m");
+            / 1024 / 1024 + "m";
             LogUtil.LogWriteIn(log);
             startTimeThreadLocal.remove();
         }

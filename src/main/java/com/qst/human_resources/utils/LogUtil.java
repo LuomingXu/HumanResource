@@ -9,9 +9,7 @@
 
 package com.qst.human_resources.utils;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.*;
 
 public class LogUtil
 {
@@ -28,15 +26,16 @@ public class LogUtil
             if (file.exists())
             {
                 bw = new BufferedWriter(new FileWriter(file, true));
-                bw.newLine();
                 bw.write(log);
             }
             else
             {
                 if (file.createNewFile())
                 {
+                    OutputStream os=new FileOutputStream(file);
+                    bw=new BufferedWriter(new OutputStreamWriter(os,"UTF-8"));
+                    bw.write("中文test");
                     bw = new BufferedWriter(new FileWriter(file, true));
-                    bw.newLine();
                     bw.write(log);
                 }
                 else

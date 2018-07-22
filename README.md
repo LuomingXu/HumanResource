@@ -2,8 +2,8 @@
 =
 
 <a href="https://ci.appveyor.com/project/LuomingXu/humanresource"><img src="https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true" alt="Project Badge" width="100px"></a>
-![image](https://img.shields.io/badge/version-1.1-brightgreen.svg)
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)<br/>
+![image](https://img.shields.io/badge/version-1.2-brightgreen.svg)
+![image](https://img.shields.io/badge/License-Apache__v2-blue.svg)<br/>
 
 [人力资源管理]
 
